@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "a9078e47-b12e-4da2-9ca2-8de5f4405adf",
+		"name": "challenge#3 Trello Apis",
+		"description": "# Introduction\n Using The Trello apis\n for :\nA) CREATE A BOARD.\nB) CREATE A LIST INSIDE IT.\nC) CREATE “N” NUMBERS OF CARDS INSIDE THIS LIST (FOR EXAMPLE 3 OR 4 CARDS).\nD) DELETE/ARCHIVE THIS LIST.\nE) DELETE/ARCHIVE THE BOARD. \n\n\n# Overview\nAPis documentation:\nhttps://developer.atlassian.com/cloud/trello/rest/api-group-boards/#api-boards-id-myprefs-showsidebarmembers-put\n\n# Authentication\nusing the the API key \nhttps://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/#boards\n\n \n ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "authorize",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://trello.com/1/authorize?expiration=1day&name=token&scope=read&response_type=token",
+					"protocol": "https",
+					"host": [
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "expiration",
+							"value": "1day"
+						},
+						{
+							"key": "name",
+							"value": "token"
+						},
+						{
+							"key": "scope",
+							"value": "read"
+						},
+						{
+							"key": "response_type",
+							"value": "token"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "authorize Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// var response = pm.response;\r",
+							"//     var jsonData = JSON.parse(responseBody);\r",
+							"//     //postman.setEnvironmentVariable(\"token\", jsonData.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://trello.com/1/authorize?expiration=1day&scope=read,write,account&response_type=token&name=Server%20Token",
+					"protocol": "https",
+					"host": [
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"authorize"
+					],
+					"query": [
+						{
+							"key": "expiration",
+							"value": "1day"
+						},
+						{
+							"key": "scope",
+							"value": "read,write,account"
+						},
+						{
+							"key": "response_type",
+							"value": "token"
+						},
+						{
+							"key": "name",
+							"value": "Server%20Token"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getBoard",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							" \r",
+							"\r",
+							"var response = pm.response;\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"   jsonData.name()\r",
+							" "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/1/members/me/boards?token={{token}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"1",
+						"members",
+						"me",
+						"boards"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createBoard",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"defaultLists\": false,\r\n    \"name\": {{boardName}},\r\n    \"prefs_permissionLevel\": \"org\",\r\n    \"prefs_selfJoin\": true,\r\n    \"idOrganization\": \"61ef1ee91ed1f76821c31886\",\r\n    \"prefs_background_url\": \"https://images.unsplash.com/photo-1642866737872-7015c33ccec7?ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjQzMDYyODU4&ixlib=rb-1.2.1&w=2560&h=2048&q=90\",\r\n    \"token\": \"{{token}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}//1/boards/{id}/checklists",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"",
+						"1",
+						"boards",
+						"{id}",
+						"checklists"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//var response = pm.response;\r",
+							"    var jsonData = JSON.parse(responseBody);\r",
+							"    jsonData.responseBody\r",
+							"    \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/boards/{id}/check?name={{name}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"boards",
+						"{id}",
+						"check"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createCard",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://api.trello.com/1/cards?idList{{myListId}}&key={{key}}&token={{token}}&name=My Card ",
+					"protocol": "https",
+					"host": [
+						"api",
+						"trello",
+						"com"
+					],
+					"path": [
+						"1",
+						"cards"
+					],
+					"query": [
+						{
+							"key": "idList{{myListId}}",
+							"value": null
+						},
+						{
+							"key": "key",
+							"value": "{{key}}"
+						},
+						{
+							"key": "token",
+							"value": "{{token}}"
+						},
+						{
+							"key": "name",
+							"value": "My Card "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "archiveList",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "key",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "0d39f56a249a9ecbf628dce402fb8f50",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
